@@ -4,16 +4,16 @@ interface Props {
   showBadge?: boolean;
 }
 
-const { size = 'md', showBadge = true } = Astro.props;
+const { size = 'md' } = Astro.props;
 
 const dimensions = {
-  sm: { icon: 30, text: 'text-base', sub: 'text-[9px]' },
-  md: { icon: 38, text: 'text-lg', sub: 'text-[10px]' },
-  lg: { icon: 48, text: 'text-2xl', sub: 'text-xs' },
+  sm: { icon: 32 },
+  md: { icon: 40 },
+  lg: { icon: 50 },
 }[size];
 ---
 
-<div class="inline-flex items-center gap-2.5 group select-none">
+<div class="inline-flex items-center group select-none">
   <!-- 灵动云官方专属星环 Logo 图标 -->
   <div class="relative flex items-center justify-center shrink-0">
     <div class="absolute inset-0 bg-gradient-to-tr from-purple-600/40 to-indigo-500/30 blur-md rounded-xl transition-all duration-300 group-hover:scale-110"></div>
@@ -26,36 +26,5 @@ const dimensions = {
       loading="eager"
       decoding="async"
     />
-  </div>
-
-  <!-- 品牌文字标识 -->
-  <div class="flex flex-col">
-    <div class="flex items-center gap-1.5">
-      <span class={`font-bold tracking-tight text-white ${dimensions.text} transition-colors group-hover:text-purple-300`}>
-        灵动云
-      </span>
-      {showBadge && (
-        <span class="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-semibold tracking-wider uppercase bg-purple-950/80 text-purple-300 border border-purple-500/30">
-          MAX
-        </span>
-      )}
-    </div>
-    <span class={`font-mono font-medium tracking-widest text-slate-400 uppercase ${dimensions.sub}`}>
-      LINGDONG CLOUD
-    </span>
-  </div>
-</div>
-      <span class={`font-bold tracking-tight text-white ${dimensions.text} transition-colors group-hover:text-purple-300`}>
-        灵动云
-      </span>
-      {showBadge && (
-        <span class="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-semibold tracking-wider uppercase bg-purple-950/80 text-purple-300 border border-purple-500/30">
-          MAX
-        </span>
-      )}
-    </div>
-    <span class={`font-mono font-medium tracking-widest text-slate-400 uppercase ${dimensions.sub}`}>
-      LINGDONG CLOUD
-    </span>
   </div>
 </div>
