@@ -1,19 +1,18 @@
 ---
 interface Props {
   size?: 'sm' | 'md' | 'lg';
-  showBadge?: boolean;
 }
 
 const { size = 'md' } = Astro.props;
 
 const dimensions = {
-  sm: { icon: 32 },
-  md: { icon: 40 },
-  lg: { icon: 50 },
+  sm: { icon: 28, text: 'text-base', en: 'text-xs' },
+  md: { icon: 36, text: 'text-lg sm:text-xl', en: 'text-xs sm:text-sm' },
+  lg: { icon: 44, text: 'text-xl sm:text-2xl', en: 'text-sm sm:text-base' },
 }[size];
 ---
 
-<div class="inline-flex items-center group select-none">
+<div class="inline-flex items-center gap-2.5 sm:gap-3 group select-none">
   <!-- 灵动云官方专属星环 Logo 图标 -->
   <div class="relative flex items-center justify-center shrink-0">
     <div class="absolute inset-0 bg-gradient-to-tr from-purple-600/40 to-indigo-500/30 blur-md rounded-xl transition-all duration-300 group-hover:scale-110"></div>
@@ -26,5 +25,15 @@ const dimensions = {
       loading="eager"
       decoding="async"
     />
+  </div>
+
+  <!-- 品牌文字标识：灵动云 LingDongYun -->
+  <div class="flex items-baseline gap-1.5 sm:gap-2">
+    <span class={`font-bold tracking-tight text-white ${dimensions.text} transition-colors group-hover:text-purple-300`}>
+      灵动云
+    </span>
+    <span class={`font-mono font-medium tracking-wide text-slate-300/85 ${dimensions.en} transition-colors group-hover:text-purple-300/90`}>
+      LingDongYun
+    </span>
   </div>
 </div>
