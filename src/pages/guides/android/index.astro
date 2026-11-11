@@ -1,0 +1,87 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import Breadcrumbs from '../../../components/Breadcrumbs.astro';
+import { SITE } from '../../../data/site';
+---
+
+<Layout
+  title="Android 手机与平板客户端使用指南"
+  description="针对 Android 移动设备（小米、华为、OPPO、vivo 等）的灵动云配置指引。介绍 Clash Meta for Android (CMFA) 与 FlClash 的订阅导入与分应用绕行规则。"
+>
+  <div class="py-12 sm:py-16">
+    <div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+      <Breadcrumbs crumbs={[{ label: '使用教程', href: '/guides/' }, { label: 'Android 配置教程' }]} />
+
+      <div class="mt-6">
+        <span class="linear-badge">ANDROID SETUP GUIDE</span>
+        <h1 class="mt-4 text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+          Android 手机与平板客户端使用指南
+        </h1>
+        <p class="mt-3 text-base text-slate-300 leading-relaxed">
+          掌握在 Android 设备上使用 **Clash Meta for Android (CMFA)** 与 **FlClash** 的核心步骤，学会利用分应用代理保护国内 App 不受干扰，并做好后台保活。
+        </p>
+      </div>
+
+      <!-- Steps -->
+      <div class="mt-10 space-y-6">
+        <div class="linear-card p-6">
+          <div class="flex items-center gap-3">
+            <span class="w-8 h-8 rounded-lg bg-emerald-900/60 border border-emerald-500/40 text-emerald-300 font-mono font-bold flex items-center justify-center text-sm">
+              01
+            </span>
+            <h2 class="text-lg font-bold text-white">安装 Clash Meta for Android (CMFA)</h2>
+          </div>
+          <p class="mt-3 text-sm text-slate-400 leading-relaxed">
+            前往[客户端下载中心](/download/#android)下载 CMFA 的 `.apk` 安装包并安装。国内手机系统如弹出安全提示，选择「允许继续安装」即可。
+          </p>
+        </div>
+
+        <div class="linear-card p-6">
+          <div class="flex items-center gap-3">
+            <span class="w-8 h-8 rounded-lg bg-purple-900/60 border border-purple-500/40 text-purple-300 font-mono font-bold flex items-center justify-center text-sm">
+              02
+            </span>
+            <h2 class="text-lg font-bold text-white">通过 URL 导入订阅配置</h2>
+          </div>
+          <p class="mt-3 text-sm text-slate-400 leading-relaxed">
+            手机浏览器登录[灵动云用户中心](https://varnexa.lingdongaff.com/#/?code=HHoxxHGa)复制专属订阅链接。打开 CMFA ->「配置 (Profiles)」-> 点击右上角「+」-> 选择「从 URL 导入」-> 粘贴订阅链接并命名保存。
+          </p>
+        </div>
+
+        <div class="linear-card p-6">
+          <div class="flex items-center gap-3">
+            <span class="w-8 h-8 rounded-lg bg-sky-900/60 border border-sky-500/40 text-sky-300 font-mono font-bold flex items-center justify-center text-sm">
+              03
+            </span>
+            <h2 class="text-lg font-bold text-white">设置分应用代理（按需分流）</h2>
+          </div>
+          <p class="mt-3 text-sm text-slate-400 leading-relaxed">
+            在「设置」->「网络」中开启「分应用代理」。您可以只勾选需要加速的海外 App（如 Chrome、YouTube、Telegram），微信与国内银行软件将完全不受影响。
+          </p>
+        </div>
+
+        <div class="linear-card p-6">
+          <div class="flex items-center gap-3">
+            <span class="w-8 h-8 rounded-lg bg-indigo-900/60 border border-indigo-500/40 text-indigo-300 font-mono font-bold flex items-center justify-center text-sm">
+              04
+            </span>
+            <h2 class="text-lg font-bold text-white">系统多任务后台锁与省电无限制</h2>
+          </div>
+          <p class="mt-3 text-sm text-slate-400 leading-relaxed">
+            为了避免锁屏后断流，请在多任务界面长按 CMFA 卡片点击加锁，并将手机系统设置中的应用电池策略设为「无限制」。
+          </p>
+        </div>
+      </div>
+
+      <div class="mt-12 p-6 rounded-2xl bg-purple-950/20 border border-purple-900/40 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+          <h3 class="text-sm font-bold text-white">阅读 Android 专题深度文章</h3>
+          <p class="text-xs text-slate-400 mt-1">《Android 手机与平板客户端使用指南：Clash Meta for Android 与分应用代理》</p>
+        </div>
+        <a href="/blog/android-client-guide/" class="btn-primary text-xs shrink-0 py-2.5 px-4">
+          <span>阅读深度博文</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</Layout>

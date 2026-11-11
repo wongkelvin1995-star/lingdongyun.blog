@@ -1,0 +1,24 @@
+{
+  "name": "lingdongyun-blog",
+  "type": "module",
+  "version": "1.0.0",
+  "private": true,
+  "description": "灵动云 LINGDONG CLOUD · 星域控制台 AETHER MAX 官方网站",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "check": "astro check",
+    "verify": "node scripts/verify-site.mjs",
+    "indexnow": "node scripts/submit-indexnow.mjs"
+  },
+  "dependencies": {
+    "@astrojs/sitemap": "^3.2.1",
+    "@tailwindcss/vite": "^4.3.3",
+    "astro": "^5.18.2",
+    "tailwindcss": "^4.3.3"
+  },
+  "devDependencies": {
+    "typescript": "^5.8.0"
+  }
+}

@@ -1,0 +1,88 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import Breadcrumbs from '../../../components/Breadcrumbs.astro';
+import { SITE } from '../../../data/site';
+---
+
+<Layout
+  title="Windows 平台客户端配置教程"
+  description="Windows 10 与 Windows 11 系统下配置灵动云网络加速服务的全套指引。涵盖 Clash Verge Rev 与 Mihomo Party 的安装、订阅导入、TUN 模式开启与排错。"
+>
+  <div class="py-12 sm:py-16">
+    <div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+      <Breadcrumbs crumbs={[{ label: '使用教程', href: '/guides/' }, { label: 'Windows 配置教程' }]} />
+
+      <div class="mt-6">
+        <span class="linear-badge">WINDOWS 10 / 11 TUTORIAL</span>
+        <h1 class="mt-4 text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+          Windows 平台网络加速配置完全指南
+        </h1>
+        <p class="mt-3 text-base text-slate-300 leading-relaxed">
+          本教程将指导您如何在 Windows 系统上使用基于 Mihomo 内核的现代客户端 **Clash Verge Rev** 或 **Mihomo Party**，快速导入灵动云订阅并启用全系统透明代理。
+        </p>
+      </div>
+
+      <!-- Quick Steps -->
+      <div class="mt-10 space-y-6">
+        <div class="linear-card p-6">
+          <div class="flex items-center gap-3">
+            <span class="w-8 h-8 rounded-lg bg-purple-900/60 border border-purple-500/40 text-purple-300 font-mono font-bold flex items-center justify-center text-sm">
+              01
+            </span>
+            <h2 class="text-lg font-bold text-white">获取客户端与安装</h2>
+          </div>
+          <p class="mt-3 text-sm text-slate-400 leading-relaxed">
+            前往灵动云[客户端下载中心](/download/#windows)，下载最新版本的 Clash Verge Rev 64位安装包（`.exe` 或 `.msi`）。双击运行并按照默认引导完成安装。
+          </p>
+        </div>
+
+        <div class="linear-card p-6">
+          <div class="flex items-center gap-3">
+            <span class="w-8 h-8 rounded-lg bg-sky-900/60 border border-sky-500/40 text-sky-300 font-mono font-bold flex items-center justify-center text-sm">
+              02
+            </span>
+            <h2 class="text-lg font-bold text-white">复制与导入专属订阅</h2>
+          </div>
+          <p class="mt-3 text-sm text-slate-400 leading-relaxed">
+            登录[灵动云用户中心](https://varnexa.lingdongaff.com/#/?code=HHoxxHGa)，在仪表盘找到「我的订阅」，点击「复制订阅链接」。打开 Clash Verge Rev，点击左侧菜单「订阅 (Profiles)」，在上方输入框粘贴链接并点击「保存并导入」。右键将该订阅设为「激活」。
+          </p>
+        </div>
+
+        <div class="linear-card p-6">
+          <div class="flex items-center gap-3">
+            <span class="w-8 h-8 rounded-lg bg-indigo-900/60 border border-indigo-500/40 text-indigo-300 font-mono font-bold flex items-center justify-center text-sm">
+              03
+            </span>
+            <h2 class="text-lg font-bold text-white">选择节点与开启连接</h2>
+          </div>
+          <p class="mt-3 text-sm text-slate-400 leading-relaxed">
+            点击左侧「代理 (Proxies)」，确认模式为「规则 (Rule)」，挑选心仪的地区（如中国香港或日本）。返回主页打开「系统代理 (System Proxy)」即可开始浏览海外资源。
+          </p>
+        </div>
+
+        <div class="linear-card p-6">
+          <div class="flex items-center gap-3">
+            <span class="w-8 h-8 rounded-lg bg-emerald-900/60 border border-emerald-500/40 text-emerald-300 font-mono font-bold flex items-center justify-center text-sm">
+              04
+            </span>
+            <h2 class="text-lg font-bold text-white">开启 TUN 虚拟网卡模式（进阶开发者必选）</h2>
+          </div>
+          <p class="mt-3 text-sm text-slate-400 leading-relaxed">
+            如果您需要在终端命令行（CMD / PowerShell / Git Bash）拉取代码或运行游戏，请进入客户端「设置」-> 开启「TUN 模式」，系统将安装虚拟网卡透明劫持所有软件流量。
+          </p>
+        </div>
+      </div>
+
+      <!-- Related Deep-dive Link -->
+      <div class="mt-12 p-6 rounded-2xl bg-purple-950/20 border border-purple-900/40 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+          <h3 class="text-sm font-bold text-white">需要更详尽的技术解析？</h3>
+          <p class="text-xs text-slate-400 mt-1">查看我们的博客深度文章：《Windows 平台配置与客户端连接完全指南》</p>
+        </div>
+        <a href="/blog/windows-setup-tutorial/" class="btn-primary text-xs shrink-0 py-2.5 px-4">
+          <span>阅读完整深度博文</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</Layout>

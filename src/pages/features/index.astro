@@ -1,0 +1,168 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import { SITE } from '../../data/site';
+---
+
+<Layout
+  title="核心优势与技术特性 · AETHER MAX"
+  description="灵动云（LINGDONG CLOUD）AETHER MAX 控制台架构核心优势：IEPL 专线冗余传输、智能规则分流引擎、全平台生态覆盖、零日志隐私保障与全天候链路容灾。"
+>
+  <div class="py-12 sm:py-16">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <Breadcrumbs crumbs={[{ label: '核心优势' }]} />
+
+      <!-- Page Header -->
+      <div class="text-center max-w-3xl mx-auto mt-6">
+        <span class="linear-badge">AETHER MAX CAPABILITIES</span>
+        <h1 class="mt-4 text-3xl sm:text-5xl font-extrabold text-white tracking-tight">
+          为稳定与高吞吐而生的加速体系
+        </h1>
+        <p class="mt-4 text-base text-slate-300 leading-relaxed">
+          深色未来科技风不仅是视觉语言，更是灵动云在底层链路调度、路由算法与系统调度上的全面工程体现。
+        </p>
+      </div>
+
+      <!-- Feature Grid -->
+      <div class="mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- 01 -->
+        <div class="linear-card p-8">
+          <div class="text-xs font-mono text-purple-400 font-bold mb-2">01 / DEDICATED LINES</div>
+          <h2 class="text-xl font-bold text-white">二层物理专线冗余</h2>
+          <p class="mt-3 text-sm text-slate-400 leading-relaxed">
+            骨干链路采用 IEPL / IPLC 专线构建，跨越公网公用海底光缆拥塞瓶颈。电信级内网通道保障数据在晚高峰依然平滑无阻，拒绝丢包跳频。
+          </p>
+          <div class="mt-6 pt-4 border-t border-slate-800 text-xs text-purple-300 font-mono">
+            RTT Jitter &lt; 2.5ms | Zero Public Transit Congestion
+          </div>
+        </div>
+
+        <!-- 02 -->
+        <div class="linear-card p-8">
+          <div class="text-xs font-mono text-sky-400 font-bold mb-2">02 / SMART ROUTING</div>
+          <h2 class="text-xl font-bold text-white">精细化规则分流</h2>
+          <p class="mt-3 text-sm text-slate-400 leading-relaxed">
+            内置前沿分流规则集，国内流量（如微信、淘宝、银行 App）本地直连，外网访问（如 Google、YouTube、GitHub）自动经由高品质专线转发，省流又极速。
+          </p>
+          <div class="mt-6 pt-4 border-t border-slate-800 text-xs text-sky-300 font-mono">
+            GEOIP Rule Engine | Fake-IP DNS Remote Resolution
+          </div>
+        </div>
+
+        <!-- 03 -->
+        <div class="linear-card p-8">
+          <div class="text-xs font-mono text-indigo-400 font-bold mb-2">03 / MULTI PLATFORM</div>
+          <h2 class="text-xl font-bold text-white">跨端多设备生态</h2>
+          <p class="mt-3 text-sm text-slate-400 leading-relaxed">
+            全面适配 Windows、macOS、Android、iOS 及 Linux。支持 Clash Verge Rev、Mihomo Party、小火箭 Shadowrocket 等全线开源与成熟工具。
+          </p>
+          <div class="mt-6 pt-4 border-t border-slate-800 text-xs text-indigo-300 font-mono">
+            Unified Subscription URL | TUN Mode Kernel Direct
+          </div>
+        </div>
+
+        <!-- 04 -->
+        <div class="linear-card p-8">
+          <div class="text-xs font-mono text-emerald-400 font-bold mb-2">04 / ZERO LOGS</div>
+          <h2 class="text-xl font-bold text-white">隐私优先与数据保护</h2>
+          <p class="mt-3 text-sm text-slate-400 leading-relaxed">
+            全链路高强度加密传输，节点中转严格遵循无日志规范，绝不记录用户的浏览足迹或目标 IP。私人订阅令牌安全隔离，守护您的数字资产。
+          </p>
+          <div class="mt-6 pt-4 border-t border-slate-800 text-xs text-emerald-300 font-mono">
+            AES-256-GCM / ChaCha20-Poly1305 | Strict Zero-Logging
+          </div>
+        </div>
+
+        <!-- 05 -->
+        <div class="linear-card p-8">
+          <div class="text-xs font-mono text-amber-400 font-bold mb-2">05 / AUTO FAILOVER</div>
+          <h2 class="text-xl font-bold text-white">秒级自动化热备容灾</h2>
+          <p class="mt-3 text-sm text-slate-400 leading-relaxed">
+            多套异构出口节点全天候在线探活。当遭遇突发国际海缆维护或公网抖动时，系统秒级无缝自动旁路倒换，确保长连接业务持续在线。
+          </p>
+          <div class="mt-6 pt-4 border-t border-slate-800 text-xs text-amber-300 font-mono">
+            Sub-second Health Check | Active-Active Redundancy
+          </div>
+        </div>
+
+        <!-- 06 -->
+        <div class="linear-card p-8">
+          <div class="text-xs font-mono text-rose-400 font-bold mb-2">06 / VERIFIED INFRA</div>
+          <h2 class="text-xl font-bold text-white">真实透明无虚构</h2>
+          <p class="mt-3 text-sm text-slate-400 leading-relaxed">
+            不制造虚假万人在线数字，不捏造毫无物理依据的毫秒延迟，诚实公示月付、年付与一次性流量规则，为您提供安心靠谱的长久服务。
+          </p>
+          <div class="mt-6 pt-4 border-t border-slate-800 text-xs text-rose-300 font-mono">
+            Transparent Pricing | Real Technical Documentation
+          </div>
+        </div>
+      </div>
+
+      <!-- Comparison Matrix -->
+      <div class="mt-20 pt-16 border-t border-purple-900/20">
+        <div class="text-center max-w-2xl mx-auto mb-12">
+          <span class="linear-badge">BENCHMARK COMPARISON</span>
+          <h2 class="mt-3 text-2xl sm:text-3xl font-bold text-white">
+            传统公网中转与灵动云专线架构对比
+          </h2>
+        </div>
+
+        <div class="linear-card overflow-hidden">
+          <div class="overflow-x-auto">
+            <table class="w-full text-left text-xs sm:text-sm">
+              <thead class="bg-purple-950/40 border-b border-slate-800 text-slate-300">
+                <tr>
+                  <th class="p-4 font-semibold">对比维度</th>
+                  <th class="p-4 font-semibold text-rose-300">传统普通公网中转</th>
+                  <th class="p-4 font-semibold text-purple-300">灵动云 AETHER MAX 专线体系</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-slate-800/60 text-slate-300">
+                <tr>
+                  <td class="p-4 font-bold text-white">传输链路</td>
+                  <td class="p-4 text-slate-400">依赖公用国际海底光缆，受高峰拥塞影响大</td>
+                  <td class="p-4 text-emerald-400 font-medium">IEPL / IPLC 专线物理二层隔离传输</td>
+                </tr>
+                <tr>
+                  <td class="p-4 font-bold text-white">晚高峰抖动</td>
+                  <td class="p-4 text-slate-400">Jitter 经常飙升至 100ms+，频繁断流</td>
+                  <td class="p-4 text-emerald-400 font-medium">抖动稳定控制在 ±2.5ms 范围</td>
+                </tr>
+                <tr>
+                  <td class="p-4 font-bold text-white">流媒体体验</td>
+                  <td class="p-4 text-slate-400">4K 频繁降画质到 720P，拖动进度条需等待</td>
+                  <td class="p-4 text-emerald-400 font-medium">4K/8K 瞬时加载，首屏秒开</td>
+                </tr>
+                <tr>
+                  <td class="p-4 font-bold text-white">AI 会话保持</td>
+                  <td class="p-4 text-slate-400">容易被 Cloudflare 风控拦截或频繁掉线</td>
+                  <td class="p-4 text-emerald-400 font-medium">纯净原生 IP 出口，长会话极佳保持率</td>
+                </tr>
+                <tr>
+                  <td class="p-4 font-bold text-white">技术支持</td>
+                  <td class="p-4 text-slate-400">松散无监管群聊，遇故障无人排查</td>
+                  <td class="p-4 text-emerald-400 font-medium">官方规范工单体系，专业网络工程师支持</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- CTA -->
+      <div class="mt-16 text-center">
+        <a
+          href={SITE.registerUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="btn-primary text-base px-8 py-3.5"
+        >
+          <span>立即体验 AETHER MAX 加速</span>
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+          </svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</Layout>

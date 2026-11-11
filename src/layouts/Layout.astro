@@ -1,0 +1,115 @@
+---
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { SITE } from '../data/site';
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+  ogImage?: string;
+  canonicalPath?: string;
+  type?: 'website' | 'article';
+  publishedTime?: string;
+  modifiedTime?: string;
+}
+
+const {
+  title,
+  description = SITE.description,
+  ogImage = SITE.ogImage,
+  canonicalPath,
+  type = 'website',
+  publishedTime,
+  modifiedTime,
+} = Astro.props;
+
+const pageTitle = title ? `${title} - ${SITE.shortName} · AETHER MAX` : `${SITE.name} - ${SITE.tagline}`;
+const currentPath = canonicalPath || Astro.url.pathname;
+// Ensure canonical URL has trailing slash
+const normalizedPath = currentPath.endsWith('/') ? currentPath : `${currentPath}/`;
+const canonicalUrl = new URL(normalizedPath, SITE.url).href;
+const fullOgImageUrl = new URL(ogImage, SITE.url).href;
+
+// Organization & WebSite JSON-LD
+const organizationSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: '灵动云',
+  alternateName: ['LINGDONG CLOUD', '灵动云官网', '灵动云机场', '灵动云VPN', 'AETHER MAX'],
+  url: 'https://lingdongyun.blog/',
+  logo: 'https://lingdongyun.blog/logo-512.png',
+  description: SITE.description,
+  sameAs: [
+    'https://varnexa.lingdongaff.com/#/?code=HHoxxHGa'
+  ]
+};
+
+const webSiteSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: '灵动云 LINGDONG CLOUD',
+  url: 'https://lingdongyun.blog/',
+  inLanguage: 'zh-CN',
+  description: SITE.description,
+};
+---
+
+<!doctype html>
+<html lang="zh-CN" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#080A12" />
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+    <meta name="keywords" content={SITE.keywords} />
+    <link rel="canonical" href={canonicalUrl} />
+
+    <!-- Favicon & Icons -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content={type} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={fullOgImageUrl} />
+    <meta property="og:site_name" content={SITE.name} />
+    <meta property="og:locale" content="zh_CN" />
+    {publishedTime && <meta property="article:published_time" content={publishedTime} />}
+    {modifiedTime && <meta property="article:modified_time" content={modifiedTime} />}
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content={canonicalUrl} />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={fullOgImageUrl} />
+
+    <!-- Bing Webmaster Verification -->
+    <meta name="msvalidate.01" content="AETHER_MAX_BING_VERIFICATION_LINGDONGYUN_BLOG" />
+
+    <!-- Structured Data -->
+    <script type="application/ld+json" set:html={JSON.stringify(organizationSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(webSiteSchema)} />
+    <slot name="head" />
+  </head>
+  <body class="bg-[#080A12] text-[#F5F7FF] flex min-h-screen flex-col font-sans selection:bg-purple-900/60 selection:text-white antialiased">
+    <!-- Accessible Skip to Main Content Link -->
+    <a href="#main-content" class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-50 focus:px-4 focus:py-2 focus:bg-purple-600 focus:text-white focus:rounded-md focus:shadow-lg">
+      跳至主要内容
+    </a>
+
+    <Header currentPath={normalizedPath} />
+
+    <main id="main-content" class="flex-1">
+      <slot />
+    </main>
+
+    <Footer />
+  </body>
+</html>

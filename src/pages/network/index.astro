@@ -1,0 +1,148 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import { SITE } from '../../data/site';
+import { NODE_REGIONS, NETWORK_TECH_SPECS } from '../../data/nodes';
+---
+
+<Layout
+  title="全球节点网络与线路架构"
+  description="灵动云全球节点网络分布与拓扑说明。基于香港、台湾、日本、新加坡、美国五大公开区域，提供多线 BGP 接入与 IEPL 专线冗余，保障跨国工作、学术与数字生活连接。"
+>
+  <div class="py-12 sm:py-16">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <Breadcrumbs crumbs={[{ label: '全球节点' }]} />
+
+      <!-- Page Header -->
+      <div class="text-center max-w-3xl mx-auto mt-6">
+        <span class="linear-badge">INFRASTRUCTURE MESH</span>
+        <h1 class="mt-4 text-3xl sm:text-5xl font-extrabold text-white tracking-tight">
+          全球公开核心节点网络拓扑
+        </h1>
+        <p class="mt-4 text-base text-slate-300 leading-relaxed">
+          灵动云依托现代通信基础设施，精细化布局亚太与北美核心互联枢纽。各区域具备清晰的业务定位与物理冗余，拒绝虚构假延迟，以真实工程标准呈现。
+        </p>
+      </div>
+
+      <!-- Regional Nodes Detailed Grid -->
+      <div class="mt-14 space-y-8">
+        {NODE_REGIONS.map((region, idx) => (
+          <div class="linear-card p-6 sm:p-8 flex flex-col lg:flex-row lg:items-center justify-between gap-8">
+            <div class="lg:max-w-2xl">
+              <div class="flex items-center gap-3">
+                <span class="text-3xl">{region.flag}</span>
+                <div>
+                  <div class="flex items-center gap-2">
+                    <h2 class="text-xl sm:text-2xl font-bold text-white">{region.name}</h2>
+                    <span class="px-2 py-0.5 rounded text-xs font-mono font-semibold bg-purple-950 text-purple-300 border border-purple-500/30">
+                      {region.code}
+                    </span>
+                  </div>
+                  <span class="text-xs text-slate-400 font-mono">{region.enName} · {region.tag}</span>
+                </div>
+              </div>
+
+              <div class="mt-4 inline-block px-3 py-1.5 rounded-lg bg-slate-900/80 border border-slate-800 text-xs text-purple-300 font-mono">
+                {region.architecture}
+              </div>
+
+              <p class="mt-3 text-sm text-slate-300 leading-relaxed">
+                {region.description}
+              </p>
+
+              <!-- Highlights -->
+              <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-slate-400">
+                {region.highlights.map((h) => (
+                  <div class="flex items-start gap-1.5">
+                    <span class="w-1.5 h-1.5 rounded-full bg-purple-400 shrink-0 mt-1.5"></span>
+                    <span>{h}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <!-- Best for tags & Action -->
+            <div class="lg:w-72 shrink-0 p-5 rounded-xl bg-purple-950/20 border border-purple-900/30 flex flex-col justify-between">
+              <div>
+                <div class="text-xs font-semibold uppercase tracking-wider text-purple-300 mb-2">
+                  推荐应用场景
+                </div>
+                <ul class="space-y-1.5 text-xs text-slate-300">
+                  {region.bestFor.map((app) => (
+                    <li class="flex items-center gap-1.5">
+                      <svg class="w-3.5 h-3.5 text-emerald-400 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                      </svg>
+                      <span>{app}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <div class="mt-6 pt-4 border-t border-purple-900/40">
+                <a
+                  href={SITE.registerUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="btn-primary w-full text-xs py-2.5"
+                >
+                  <span>接入此区域节点</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <!-- Technical Architecture Standards -->
+      <div class="mt-20 pt-16 border-t border-purple-900/20">
+        <div class="text-center max-w-2xl mx-auto mb-12">
+          <span class="linear-badge">ENGINEERING STANDARDS</span>
+          <h2 class="mt-3 text-2xl sm:text-3xl font-bold text-white">
+            底层专网与路由技术标准
+          </h2>
+          <p class="mt-2 text-xs text-slate-400">
+            从数据链路层到应用层，构建透明、安全、稳定的传输闭环。
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {NETWORK_TECH_SPECS.map((spec) => (
+            <div class="linear-card p-6">
+              <h3 class="text-base font-bold text-white flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full bg-sky-400"></span>
+                <span>{spec.title}</span>
+              </h3>
+              <p class="mt-3 text-sm text-slate-400 leading-relaxed">
+                {spec.desc}
+              </p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <!-- Latency & Speed Truth Section -->
+      <div class="mt-16 rounded-2xl bg-[#0e1220] border border-purple-900/30 p-6 sm:p-8">
+        <div class="flex items-start gap-4">
+          <div class="w-10 h-10 rounded-xl bg-amber-950 text-amber-400 border border-amber-500/30 flex items-center justify-center shrink-0">
+            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+          </div>
+          <div>
+            <h3 class="text-base font-bold text-white">关于节点延迟与测速的公开声明</h3>
+            <p class="mt-2 text-xs sm:text-sm text-slate-300 leading-relaxed">
+              互联网遵循光纤物理传输定律。中国大陆到香港的物理往返延迟通常在 15ms~45ms 之间；到日本通常在 35ms~65ms 之间；跨越太平洋到美国西海岸通常在 120ms~160ms 之间。
+              任何标榜“全国全天候 1ms”或“无论何时都是 0 丢包”的言论均属伪造或通过本地劫持伪装 Ping 值。灵动云坚持诚实呈现网络参数，不通过技术欺骗误导用户。
+            </p>
+            <div class="mt-4">
+              <a href="/speed-tests/" class="text-xs font-semibold text-purple-400 hover:underline">
+                深入了解《客观科学的节点测速与评估方法》 →
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</Layout>

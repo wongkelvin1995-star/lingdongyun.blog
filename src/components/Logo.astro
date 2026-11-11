@@ -1,0 +1,84 @@
+---
+interface Props {
+  size?: 'sm' | 'md' | 'lg';
+  showBadge?: boolean;
+}
+
+const { size = 'md', showBadge = true } = Astro.props;
+
+const dimensions = {
+  sm: { icon: 28, text: 'text-base', sub: 'text-[9px]' },
+  md: { icon: 34, text: 'text-lg', sub: 'text-[10px]' },
+  lg: { icon: 44, text: 'text-2xl', sub: 'text-xs' },
+}[size];
+---
+
+<div class="inline-flex items-center gap-2.5 group select-none">
+  <!-- 灵动云独创紫色流云与星轨符号 (AETHER MAX Symbol) -->
+  <div class="relative flex items-center justify-center shrink-0">
+    <div class="absolute inset-0 bg-gradient-to-tr from-purple-600/40 to-sky-400/30 blur-md rounded-xl transition-all duration-300 group-hover:scale-110"></div>
+    <svg 
+      width={dimensions.icon} 
+      height={dimensions.icon} 
+      viewBox="0 0 48 48" 
+      fill="none" 
+      xmlns="http://www.w3.org/2000/svg"
+      class="relative z-10 drop-shadow-sm transition-transform duration-300 group-hover:rotate-6"
+    >
+      <defs>
+        <!-- 品牌渐变紫蓝 -->
+        <linearGradient id="ldy-cloud-grad" x1="6" y1="10" x2="42" y2="40" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stop-color="#A78BFA" />
+          <stop offset="50%" stop-color="#8B5CF6" />
+          <stop offset="100%" stop-color="#38BDF8" />
+        </linearGradient>
+        <!-- 轨道渐变 -->
+        <linearGradient id="ldy-orbit-grad" x1="8" y1="38" x2="40" y2="10" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stop-color="#38BDF8" stop-opacity="0.85" />
+          <stop offset="100%" stop-color="#C084FC" stop-opacity="0.9" />
+        </linearGradient>
+      </defs>
+
+      <!-- 外层未来感六边形流线底衬 -->
+      <rect x="4" y="4" width="40" height="40" rx="12" fill="#141827" stroke="rgba(139, 92, 246, 0.35)" stroke-width="1.5" />
+
+      <!-- 紫色流云主形态 (Stylized Dynamic Cloud) -->
+      <path 
+        d="M17 31C14.7909 31 13 29.2091 13 27C13 24.9667 14.5168 23.2872 16.5 23.0325C17.0784 19.6105 20.0388 17 23.6 17C26.7933 17 29.508 19.0988 30.4005 22.0125C30.9022 21.8413 31.4398 21.75 32 21.75C34.4853 21.75 36.5 23.7647 36.5 26.25C36.5 28.7353 34.4853 30.75 32 30.75H17Z" 
+        fill="url(#ldy-cloud-grad)" 
+      />
+
+      <!-- 环绕穿越星轨连接轨迹 (Aether Orbit) -->
+      <path 
+        d="M10 34C15 38 33 39 39 25C41 20 38 13 33 11" 
+        stroke="url(#ldy-orbit-grad)" 
+        stroke-width="2" 
+        stroke-linecap="round" 
+        stroke-dasharray="2 4"
+      />
+
+      <!-- 璀璨星轨核心连接节点点位 -->
+      <circle cx="39" cy="25" r="2.5" fill="#38BDF8" />
+      <circle cx="39" cy="25" r="4.5" stroke="#38BDF8" stroke-width="1" stroke-opacity="0.5" />
+      <circle cx="16" cy="14" r="1.5" fill="#F5F7FF" />
+      <circle cx="33" cy="35" r="1.5" fill="#A78BFA" />
+    </svg>
+  </div>
+
+  <!-- 品牌文字标识 -->
+  <div class="flex flex-col">
+    <div class="flex items-center gap-1.5">
+      <span class={`font-bold tracking-tight text-white ${dimensions.text} transition-colors group-hover:text-purple-300`}>
+        灵动云
+      </span>
+      {showBadge && (
+        <span class="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-semibold tracking-wider uppercase bg-purple-950/80 text-purple-300 border border-purple-500/30">
+          MAX
+        </span>
+      )}
+    </div>
+    <span class={`font-mono font-medium tracking-widest text-slate-400 uppercase ${dimensions.sub}`}>
+      LINGDONG CLOUD
+    </span>
+  </div>
+</div>

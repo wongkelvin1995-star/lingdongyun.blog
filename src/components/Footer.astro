@@ -1,0 +1,95 @@
+---
+import Logo from './Logo.astro';
+import { SITE, FOOTER_LINKS } from '../data/site';
+---
+
+<footer class="border-t border-purple-900/20 bg-[#06080e] text-slate-400">
+  <div class="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
+    <div class="grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-5">
+      <!-- Brand & Mission Info -->
+      <div class="lg:col-span-2 space-y-4">
+        <a href="/" class="inline-block" aria-label="返回首页">
+          <Logo size="lg" />
+        </a>
+        <p class="text-sm leading-relaxed text-slate-300 max-w-sm">
+          灵动云（LINGDONG CLOUD）是专为多设备用户打造的现代化网络加速服务品牌。依托深色星域控制台理念，提供香港、台湾、日本、新加坡及美国等多地区高可靠性接入节点。
+        </p>
+        <div class="flex items-center gap-2 text-xs text-purple-300/80">
+          <span class="inline-block w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+          <span>AETHER MAX 控制台架构 · 节点健康监测运行中</span>
+        </div>
+        <div class="pt-2">
+          <a
+            href={SITE.registerUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center gap-2 text-xs font-semibold px-3 py-1.5 rounded-md bg-purple-900/30 text-purple-300 border border-purple-600/30 hover:bg-purple-800/40 hover:text-white transition-all"
+          >
+            <span>进入官方客户中心</span>
+            <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+            </svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- Column 1: 产品服务 -->
+      <div>
+        <h3 class="text-xs font-semibold uppercase tracking-wider text-slate-200">
+          产品与网络
+        </h3>
+        <ul class="mt-4 space-y-2.5 text-sm">
+          {FOOTER_LINKS.product.map((link) => (
+            <li>
+              <a href={link.href} class="hover:text-purple-300 transition-colors">
+                {link.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <!-- Column 2: 教程指南 -->
+      <div>
+        <h3 class="text-xs font-semibold uppercase tracking-wider text-slate-200">
+          客户端与教程
+        </h3>
+        <ul class="mt-4 space-y-2.5 text-sm">
+          {FOOTER_LINKS.guides.map((link) => (
+            <li>
+              <a href={link.href} class="hover:text-purple-300 transition-colors">
+                {link.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <!-- Column 3: 官方支持与条款 -->
+      <div>
+        <h3 class="text-xs font-semibold uppercase tracking-wider text-slate-200">
+          支持与法律
+        </h3>
+        <ul class="mt-4 space-y-2.5 text-sm">
+          {FOOTER_LINKS.support.map((link) => (
+            <li>
+              <a href={link.href} class="hover:text-purple-300 transition-colors">
+                {link.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+
+    <!-- Bottom Bar & Disclaimers -->
+    <div class="mt-12 pt-8 border-t border-slate-800/60 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400">
+      <div>
+        © 2026 灵动云 LINGDONG CLOUD · <a href="https://lingdongyun.blog/" class="text-slate-300 hover:underline">lingdongyun.blog</a> 版权所有。
+      </div>
+      <div class="text-center sm:text-right text-[11px] text-slate-400 max-w-md">
+        本站严格遵守相关法律法规，为跨国学术、研发、合规跨境贸易与海外流媒体访问提供网络加速支撑。严禁利用本服务从事任何违法违规行为。
+      </div>
+    </div>
+  </div>
+</footer>

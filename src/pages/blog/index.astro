@@ -1,0 +1,96 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import { getCollection } from 'astro:content';
+
+const allPosts = await getCollection('blog');
+const sortedPosts = allPosts.sort(
+  (a, b) => new Date(b.data.pubDate).getTime() - new Date(a.data.pubDate).getTime()
+);
+
+const categories = Array.from(new Set(allPosts.map((p) => p.data.category)));
+---
+
+<Layout
+  title="技术博客与网络指引专栏"
+  description="灵动云官方技术博客与网络加速专栏。汇集品牌介绍、套餐选购指南、Windows/macOS/Android/iOS 全平台客户端配置教程、IEPL专线原理、AI大模型优化与科学测速全套原创内容。"
+>
+  <div class="py-12 sm:py-16">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <Breadcrumbs crumbs={[{ label: '技术博客' }]} />
+
+      <!-- Page Header -->
+      <div class="text-center max-w-3xl mx-auto mt-6">
+        <span class="linear-badge">OFFICIAL ARTICLES</span>
+        <h1 class="mt-4 text-3xl sm:text-5xl font-extrabold text-white tracking-tight">
+          灵动云技术博文与官方指南
+        </h1>
+        <p class="mt-4 text-base text-slate-300 leading-relaxed">
+          首批 12 篇原创深度文章，覆盖品牌全景、选购逻辑、跨端实战、专网工程原理、AI 会话保持与数字安全。拒绝千篇一律的套话，提供严谨真实的技术干货。
+        </p>
+      </div>
+
+      <!-- Categories Pills -->
+      <div class="mt-10 flex flex-wrap items-center justify-center gap-2">
+        <span class="text-xs text-slate-400 mr-2 font-mono">分类速览:</span>
+        {categories.map((cat) => (
+          <span class="px-3 py-1 rounded-full text-xs font-medium bg-purple-950/60 text-purple-300 border border-purple-500/30">
+            {cat}
+          </span>
+        ))}
+      </div>
+
+      <!-- Articles Grid -->
+      <div class="mt-14 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {sortedPosts.map((post) => (
+          <article class="linear-card p-6 sm:p-7 flex flex-col justify-between group">
+            <div>
+              <div class="flex items-center justify-between text-xs text-slate-400 mb-3">
+                <span class="px-2.5 py-0.5 rounded bg-purple-950 text-purple-300 border border-purple-500/20 font-medium">
+                  {post.data.category}
+                </span>
+                <time datetime={post.data.pubDate} class="font-mono text-slate-400">
+                  {post.data.pubDate}
+                </time>
+              </div>
+
+              <h2 class="text-lg font-bold text-white group-hover:text-purple-300 transition-colors line-clamp-2 leading-snug">
+                <a href={`/blog/${post.id}/`}>
+                  {post.data.title}
+                </a>
+              </h2>
+
+              <p class="mt-3 text-xs sm:text-sm text-slate-400 line-clamp-3 leading-relaxed">
+                {post.data.description}
+              </p>
+
+              <!-- Tags -->
+              {post.data.tags && post.data.tags.length > 0 && (
+                <div class="mt-4 flex flex-wrap gap-1.5">
+                  {post.data.tags.slice(0, 3).map((tag) => (
+                    <span class="text-[10px] text-slate-400 bg-slate-900 px-2 py-0.5 rounded border border-slate-800">
+                      #{tag}
+                    </span>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            <div class="mt-6 pt-4 border-t border-slate-800/80 flex items-center justify-between text-xs">
+              <span class="text-slate-400">{post.data.author}</span>
+              <a
+                href={`/blog/${post.id}/`}
+                class="font-semibold text-purple-400 hover:text-purple-300 flex items-center gap-1 group-hover:translate-x-0.5 transition-transform"
+              >
+                <span>阅读全文</span>
+                <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                </svg>
+              </a>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </div>
+</Layout>

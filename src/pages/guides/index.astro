@@ -1,0 +1,159 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import { PLATFORMS } from '../../data/clients';
+import { getCollection } from 'astro:content';
+
+const allPosts = await getCollection('blog');
+const tutorialPosts = allPosts.filter((p) => p.data.category === '配置教程');
+---
+
+<Layout
+  title="使用教程中心 · 全平台上手指引"
+  description="灵动云官方教程中心。提供 Windows、macOS、Android 与 iOS 各平台的客户端安装、订阅导入、分流模式切换与常见网络问题排查全套指南。"
+>
+  <div class="py-12 sm:py-16">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <Breadcrumbs crumbs={[{ label: '使用教程' }]} />
+
+      <!-- Page Header -->
+      <div class="text-center max-w-3xl mx-auto mt-6">
+        <span class="linear-badge">USER GUIDES</span>
+        <h1 class="mt-4 text-3xl sm:text-5xl font-extrabold text-white tracking-tight">
+          全平台客户端配置教程中心
+        </h1>
+        <p class="mt-4 text-base text-slate-300 leading-relaxed">
+          清晰细致的手把手图文指南。选择您的设备系统，快速掌握从订阅同步到 TUN 虚拟网卡开启的每一个关键步骤。
+        </p>
+      </div>
+
+      <!-- Platform Hub Cards -->
+      <div class="mt-14 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <a href="/guides/windows/" class="linear-card p-6 flex flex-col justify-between group">
+          <div>
+            <div class="w-12 h-12 rounded-xl bg-purple-950/60 border border-purple-500/30 text-purple-300 flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition-transform">
+              <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+              </svg>
+            </div>
+            <h2 class="text-lg font-bold text-white group-hover:text-purple-300 transition-colors">
+              Windows 配置指南
+            </h2>
+            <p class="mt-2 text-xs text-slate-400 leading-relaxed">
+              适配 Windows 10/11 64位系统。推荐使用 Clash Verge Rev 或 Mihomo Party，支持一键 TUN 模式接管系统网络。
+            </p>
+          </div>
+          <div class="mt-6 pt-3 border-t border-slate-800 text-xs font-semibold text-purple-400 flex items-center gap-1">
+            <span>进入 Windows 教程</span>
+            <svg class="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+            </svg>
+          </div>
+        </a>
+
+        <a href="/guides/macos/" class="linear-card p-6 flex flex-col justify-between group">
+          <div>
+            <div class="w-12 h-12 rounded-xl bg-sky-950/60 border border-sky-500/30 text-sky-300 flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition-transform">
+              <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
+              </svg>
+            </div>
+            <h2 class="text-lg font-bold text-white group-hover:text-sky-300 transition-colors">
+              macOS 配置指南
+            </h2>
+            <p class="mt-2 text-xs text-slate-400 leading-relaxed">
+              原生支持 Apple Silicon M1~M4 与 Intel 芯片。菜单栏常驻控制，解决命令行与 Git 终端代理难点。
+            </p>
+          </div>
+          <div class="mt-6 pt-3 border-t border-slate-800 text-xs font-semibold text-sky-400 flex items-center gap-1">
+            <span>进入 macOS 教程</span>
+            <svg class="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+            </svg>
+          </div>
+        </a>
+
+        <a href="/guides/android/" class="linear-card p-6 flex flex-col justify-between group">
+          <div>
+            <div class="w-12 h-12 rounded-xl bg-emerald-950/60 border border-emerald-500/30 text-emerald-300 flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition-transform">
+              <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+              </svg>
+            </div>
+            <h2 class="text-lg font-bold text-white group-hover:text-emerald-300 transition-colors">
+              Android 配置指南
+            </h2>
+            <p class="mt-2 text-xs text-slate-400 leading-relaxed">
+              针对小米、华为、OPPO、vivo 等安卓手机平板。详解 Clash Meta for Android 分应用代理与后台保活。
+            </p>
+          </div>
+          <div class="mt-6 pt-3 border-t border-slate-800 text-xs font-semibold text-emerald-400 flex items-center gap-1">
+            <span>进入 Android 教程</span>
+            <svg class="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+            </svg>
+          </div>
+        </a>
+
+        <a href="/guides/ios/" class="linear-card p-6 flex flex-col justify-between group">
+          <div>
+            <div class="w-12 h-12 rounded-xl bg-indigo-950/60 border border-indigo-500/30 text-indigo-300 flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition-transform">
+              <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
+              </svg>
+            </div>
+            <h2 class="text-lg font-bold text-white group-hover:text-indigo-300 transition-colors">
+              iOS / iPadOS 指南
+            </h2>
+            <p class="mt-2 text-xs text-slate-400 leading-relaxed">
+              适用于 iPhone 与 iPad。涵盖小火箭 Shadowrocket 扫码导入、按需连接与策略组智能分流配置。
+            </p>
+          </div>
+          <div class="mt-6 pt-3 border-t border-slate-800 text-xs font-semibold text-indigo-400 flex items-center gap-1">
+            <span>进入 iOS 教程</span>
+            <svg class="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+            </svg>
+          </div>
+        </a>
+      </div>
+
+      <!-- Tutorial Articles Grid -->
+      <div class="mt-20 pt-16 border-t border-purple-900/20">
+        <h2 class="text-2xl font-bold text-white mb-8">
+          精选官方配置专栏文章
+        </h2>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {tutorialPosts.map((post) => (
+            <div class="linear-card p-6 flex flex-col justify-between">
+              <div>
+                <div class="flex items-center justify-between text-xs text-slate-400 mb-2">
+                  <span class="px-2 py-0.5 rounded bg-purple-950 text-purple-300 border border-purple-500/20 font-mono">
+                    {post.data.category}
+                  </span>
+                  <time datetime={post.data.pubDate} class="font-mono">{post.data.pubDate}</time>
+                </div>
+                <h3 class="text-lg font-bold text-white hover:text-purple-300 transition-colors">
+                  <a href={`/blog/${post.id}/`}>{post.data.title}</a>
+                </h3>
+                <p class="mt-2.5 text-xs text-slate-400 leading-relaxed">
+                  {post.data.description}
+                </p>
+              </div>
+
+              <div class="mt-6 pt-3 border-t border-slate-800 flex items-center justify-between">
+                <a href={`/blog/${post.id}/`} class="text-xs font-semibold text-purple-400 hover:text-purple-300 inline-flex items-center gap-1">
+                  <span>查看详细图文步骤</span>
+                  <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                  </svg>
+                </a>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </div>
+</Layout>

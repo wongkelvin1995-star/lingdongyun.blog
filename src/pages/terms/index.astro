@@ -1,0 +1,73 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+---
+
+<Layout
+  title="服务条款与使用协议 · 灵动云"
+  description="灵动云（LINGDONG CLOUD）服务条款（Terms of Service）。详细说明合规使用规范、禁止行为准则、服务可用性保障及账户免责条款。"
+>
+  <div class="py-12 sm:py-16">
+    <div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+      <Breadcrumbs crumbs={[{ label: '服务条款' }]} />
+
+      <header class="mt-6 pb-6 border-b border-purple-900/30">
+        <span class="linear-badge">TERMS OF SERVICE</span>
+        <h1 class="mt-4 text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+          灵动云服务条款与用户协议
+        </h1>
+        <p class="mt-2 text-xs text-slate-400 font-mono">
+          生效日期：2026年10月21日 · 最近修订：2026年11月11日
+        </p>
+      </header>
+
+      <div class="mt-8 space-y-8 text-sm text-slate-300 leading-relaxed">
+        <section class="linear-card p-6">
+          <h2 class="text-base font-bold text-white mb-2">1. 协议接受与服务范围</h2>
+          <p>
+            欢迎使用灵动云（LINGDONG CLOUD）。当您注册、订购或使用灵动云提供的任何网络连接服务时，即视为您已仔细阅读并完全同意遵守本服务条款及相关政策。灵动云旨在为合规的学术研究、跨境软件开发、正规跨国商务及海外文化娱乐提供优质加速。
+          </p>
+        </section>
+
+        <section class="linear-card p-6">
+          <h2 class="text-base font-bold text-white mb-2">2. 合规与禁止行为准则（零容忍）</h2>
+          <p>
+            用户在利用灵动云网络时，必须严格遵守相关法律法规及公认的互联网道德规范。严禁利用本网络从事以下任何活动：
+          </p>
+          <ul class="mt-2 space-y-1.5 list-disc list-inside text-xs text-slate-400">
+            <li>发起、参与任何针对第三方服务器的 DDoS、DoS 拒绝服务攻击或恶意网络扫描；</li>
+            <li>散布计算机病毒、特洛伊木马或恶意挖矿程序；</li>
+            <li>从事网络钓鱼、信用卡欺诈、金融洗钱等任何形式的非法犯罪行为；</li>
+            <li>发送垃圾邮件（SPAM）或进行暴力破解尝试；</li>
+            <li>公开或在公共群组中传播您的专属订阅凭证导致节点被高频攻击。</li>
+          </ul>
+          <p class="mt-3 text-xs text-rose-300">
+            * 如发现任何账户存在上述严重违规行为，灵动云有权立即封禁该账户并终止全部服务，且不予退费。
+          </p>
+        </section>
+
+        <section class="linear-card p-6">
+          <h2 class="text-base font-bold text-white mb-2">3. 计费、周期与流量使用规则</h2>
+          <p>
+            套餐的具体价格、流量额度与有效期以用户中心结算页面为准。
+            月付套餐每月周期性重置额度，到期未用完不予结转；年付方案按月发放固定额度；一次性流量包为账户总额度，用完为止。
+          </p>
+        </section>
+
+        <section class="linear-card p-6">
+          <h2 class="text-base font-bold text-white mb-2">4. 服务可用性与免责声明</h2>
+          <p>
+            虽然灵动云尽最大技术努力通过 IEPL 专线冗余与多线 BGP 维持高可用运行，但鉴于全球互联网国际海底光缆维护、恶劣天气或不可抗力等偶发因素，我们不作任何 100% 绝对无中断的无条件承诺。在计划内网络割接维护时，我们将提前通过官方网站发布公告。
+          </p>
+        </section>
+
+        <section class="linear-card p-6">
+          <h2 class="text-base font-bold text-white mb-2">5. 条款修改与最终解释权</h2>
+          <p>
+            灵动云保留根据网络运营实际情况合理调整本条款的权利，修改后的条款一旦公布即行生效。继续使用本服务即表示您接受修订后的条款。
+          </p>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>

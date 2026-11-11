@@ -1,0 +1,112 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import { SITE } from '../../data/site';
+---
+
+<Layout
+  title="真实节点测速与科学测试方法"
+  description="客观科学的节点测速与网络品质评估专栏。拒绝伪造跑分图与虚假延迟，系统介绍 RTT 往返时延、Jitter 抖动、丢包率与晚高峰稳态吞吐等核心评估标准。"
+>
+  <div class="py-12 sm:py-16">
+    <div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+      <Breadcrumbs crumbs={[{ label: '真实测速' }]} />
+
+      <div class="mt-6 text-center max-w-2xl mx-auto">
+        <span class="linear-badge">STANDARDIZED BENCHMARK</span>
+        <h1 class="mt-4 text-3xl sm:text-5xl font-extrabold text-white tracking-tight">
+          客观科学的节点测速专栏
+        </h1>
+        <p class="mt-4 text-base text-slate-300 leading-relaxed">
+          单次 10 秒跑分无法代表全天候稳定性。灵动云倡导以真实的计算机网络测试标准，评估跨国链路抗抖动与丢包表现。
+        </p>
+      </div>
+
+      <!-- Core Principle Alert -->
+      <div class="mt-12 p-6 rounded-2xl bg-purple-950/20 border border-purple-900/30 flex items-start gap-4">
+        <div class="w-10 h-10 rounded-xl bg-purple-900/50 text-purple-300 border border-purple-500/30 flex items-center justify-center shrink-0">
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+          </svg>
+        </div>
+        <div>
+          <h2 class="text-base font-bold text-white">灵动云严正承诺：不提供虚假测速与伪造跑分</h2>
+          <p class="mt-2 text-xs sm:text-sm text-slate-300 leading-relaxed">
+            在市面上，部分不良平台通过在客户端内部劫持 Speedtest 流量指向本地机房、篡改 Ping 报文回包时间等手段制造“假跑满”现象。灵动云恪守工程诚信准则，鼓励用户在真实工作与娱乐场景中验证网络质量。
+          </p>
+        </div>
+      </div>
+
+      <!-- 4 Core Metrics -->
+      <div class="mt-12 space-y-6">
+        <h2 class="text-2xl font-bold text-white">网络质量评估的四大黄金维度</h2>
+
+        <div class="linear-card p-6">
+          <h3 class="text-base font-bold text-white flex items-center gap-2">
+            <span class="w-2.5 h-2.5 rounded-full bg-purple-400"></span>
+            <span>1. 连续往返延迟抖动 (Jitter)</span>
+          </h3>
+          <p class="mt-2 text-sm text-slate-400 leading-relaxed">
+            延迟数字不是越小越好，而是越平稳越好。通过连续发送 100 次 Ping 数据包，计算延迟的方差。方差波动小于 3ms 代表专线二层调度极度稳定，不会在语音会议或游戏中出现突发卡顿。
+          </p>
+        </div>
+
+        <div class="linear-card p-6">
+          <h3 class="text-base font-bold text-white flex items-center gap-2">
+            <span class="w-2.5 h-2.5 rounded-full bg-sky-400"></span>
+            <span>2. 晚高峰丢包率 (Packet Loss)</span>
+          </h3>
+          <p class="mt-2 text-sm text-slate-400 leading-relaxed">
+            工作日晚高峰（20:00 - 23:00）是检验专线品质的唯一试金石。普通公网海缆在高峰期丢包率可达 10%~30%，而灵动云依托 IEPL 专线冗余，将传输丢包率长期压制在 0.2% 以下。
+          </p>
+        </div>
+
+        <div class="linear-card p-6">
+          <h3 class="text-base font-bold text-white flex items-center gap-2">
+            <span class="w-2.5 h-2.5 rounded-full bg-indigo-400"></span>
+            <span>3. 首字节加载时间 (TTFB - Time To First Byte)</span>
+          </h3>
+          <p class="mt-2 text-sm text-slate-400 leading-relaxed">
+            TTFB 衡量的是从浏览器发起请求到收到目标服务器第一个数据字节的耗时。它直接决定了点击网页、点开 4K 视频时是否需要等待转圈。
+          </p>
+        </div>
+
+        <div class="linear-card p-6">
+          <h3 class="text-base font-bold text-white flex items-center gap-2">
+            <span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span>
+            <span>4. 长连接稳态吞吐 (Steady-state Throughput)</span>
+          </h3>
+          <p class="mt-2 text-sm text-slate-400 leading-relaxed">
+            持续下载大文件或拉取 Docker 镜像时，观察传输速率是否呈一条平稳的水平线，而非过山车式的锯齿状波动。
+          </p>
+        </div>
+      </div>
+
+      <!-- Self Benchmark Tools -->
+      <div class="mt-14 rounded-2xl bg-[#0b0e1a] border border-purple-900/40 p-6 sm:p-8 font-mono text-xs">
+        <h3 class="text-sm font-bold text-white font-sans mb-3 flex items-center gap-2">
+          <svg class="w-4 h-4 text-purple-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+          </svg>
+          <span>推荐终端自测命令（开发者参考）</span>
+        </h3>
+        <div class="p-3 rounded-lg bg-black/50 text-slate-300 space-y-2 overflow-x-auto">
+          <p class="text-purple-300"># 1. 使用 cURL 测试真实海外文件下载的稳态下行速率</p>
+          <p class="text-slate-200">curl -o /dev/null -s -w '耗时: %&#123;time_total&#125;s | 平均速度: %&#123;speed_download&#125; 字节/秒\n' https://speed.cloudflare.com/__down?bytes=50000000</p>
+          <p class="text-purple-300 mt-3"># 2. 连续 100 次 Ping 统计抖动与丢包率</p>
+          <p class="text-slate-200">ping -n 100 1.1.1.1</p>
+        </div>
+      </div>
+
+      <!-- Related Blog Post -->
+      <div class="mt-12 text-center">
+        <a href="/blog/speed-test-methodology/" class="btn-primary text-sm px-6 py-3">
+          <span>阅读专栏博文《为何单次 Speedtest 无法代表真实稳定性》</span>
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+          </svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</Layout>

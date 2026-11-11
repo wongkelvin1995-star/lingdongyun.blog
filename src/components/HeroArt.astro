@@ -1,0 +1,122 @@
+---
+// HeroArt.astro - 灵动云 AETHER MAX 星域控制台背景
+// 桌面端运行轻量化粒子星轨 Canvas，移动端降级为高性能 CSS 渐变光效，绝不阻塞内容加载
+---
+
+<div class="pointer-events-none absolute inset-0 overflow-hidden z-0 select-none" aria-hidden="true">
+  <!-- 基础细腻科技网格 -->
+  <div class="absolute inset-0 bg-cosmic-grid opacity-75"></div>
+
+  <!-- 大范围柔和紫蓝宇宙光晕 -->
+  <div class="absolute -top-32 left-1/2 -translate-x-1/2 w-[700px] sm:w-[900px] h-[500px] bg-gradient-to-b from-purple-700/20 via-indigo-600/10 to-transparent blur-3xl rounded-full"></div>
+  <div class="absolute top-1/4 right-0 w-[450px] h-[450px] bg-sky-500/10 blur-[120px] rounded-full"></div>
+  <div class="absolute top-1/3 left-0 w-[400px] h-[400px] bg-purple-600/10 blur-[120px] rounded-full"></div>
+
+  <!-- 桌面端轻量星域轨道与动态粒子 Canvas -->
+  <canvas id="hero-cosmos-canvas" class="hidden sm:block absolute inset-0 w-full h-full opacity-60"></canvas>
+</div>
+
+<script>
+  function initCosmicCanvas() {
+    // 检查是否偏好减少动画，或者是极小屏幕设备
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || window.innerWidth < 640) {
+      return;
+    }
+
+    const canvas = document.getElementById('hero-cosmos-canvas') as HTMLCanvasElement | null;
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    let width = (canvas.width = canvas.parentElement?.clientWidth || window.innerWidth);
+    let height = (canvas.height = canvas.parentElement?.clientHeight || 650);
+
+    const onResize = () => {
+      if (!canvas) return;
+      width = canvas.width = canvas.parentElement?.clientWidth || window.innerWidth;
+      height = canvas.height = canvas.parentElement?.clientHeight || 650;
+    };
+    window.addEventListener('resize', onResize, { passive: true });
+
+    // 粒子与星轨定义
+    const particleCount = 36;
+    const particles: { x: number; y: number; vx: number; vy: number; radius: number; color: string; alpha: number }[] = [];
+    const colors = ['#8B5CF6', '#38BDF8', '#C084FC', '#93C5FD'];
+
+    for (let i = 0; i < particleCount; i++) {
+      particles.push({
+        x: Math.random() * width,
+        y: Math.random() * height,
+        vx: (Math.random() - 0.5) * 0.4,
+        vy: (Math.random() - 0.5) * 0.4,
+        radius: Math.random() * 1.8 + 0.8,
+        color: colors[Math.floor(Math.random() * colors.length)],
+        alpha: Math.random() * 0.6 + 0.2,
+      });
+    }
+
+    let animationId: number;
+    let isVisible = true;
+
+    // 当页面不可见时暂停 Canvas 绘制以极度节省电量与性能
+    document.addEventListener('visibilitychange', () => {
+      isVisible = !document.hidden;
+      if (isVisible) render();
+      else cancelAnimationFrame(animationId);
+    });
+
+    const render = () => {
+      if (!ctx || !isVisible) return;
+      ctx.clearRect(0, 0, width, height);
+
+      // 绘制粒子与连线
+      for (let i = 0; i < particles.length; i++) {
+        const p = particles[i];
+        p.x += p.vx;
+        p.y += p.vy;
+
+        if (p.x < 0) p.x = width;
+        else if (p.x > width) p.x = 0;
+        if (p.y < 0) p.y = height;
+        else if (p.y > height) p.y = 0;
+
+        // 绘制微粒点
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+        ctx.fillStyle = p.color;
+        ctx.globalAlpha = p.alpha;
+        ctx.fill();
+
+        // 绘制邻近微粒之间的星轨连线
+        for (let j = i + 1; j < particles.length; j++) {
+          const p2 = particles[j];
+          const dx = p.x - p2.x;
+          const dy = p.y - p2.y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+
+          if (dist < 110) {
+            ctx.beginPath();
+            ctx.moveTo(p.x, p.y);
+            ctx.lineTo(p2.x, p2.y);
+            ctx.strokeStyle = '#8B5CF6';
+            ctx.globalAlpha = (1 - dist / 110) * 0.22;
+            ctx.lineWidth = 0.8;
+            ctx.stroke();
+          }
+        }
+      }
+
+      ctx.globalAlpha = 1.0;
+      animationId = requestAnimationFrame(render);
+    };
+
+    render();
+  }
+
+  // 首屏加载后异步初始化 Canvas，绝不阻碍首屏 FCP 与 LCP
+  if (document.readyState === 'complete') {
+    initCosmicCanvas();
+  } else {
+    window.addEventListener('load', initCosmicCanvas, { once: true });
+  }
+</script>
