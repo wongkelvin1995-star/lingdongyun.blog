@@ -4,18 +4,19 @@
  */
 
 export const SITE = {
-  name: '灵动云 LINGDONG CLOUD · 官方网站',
+  name: '灵动云 LingDongYun｜全球网络加速服务品牌',
   shortName: '灵动云',
   brandEn: 'LINGDONG CLOUD',
-  tagline: '连接世界，自在无界',
+  brandPinyin: 'LingDongYun',
+  tagline: '全球网络加速服务品牌',
   themeName: '灵动云 · 星域控制台',
   designCode: 'AETHER MAX',
   domain: 'lingdongyun.blog',
   url: 'https://lingdongyun.blog',
   // 官方注册与订阅入口（完整保留安全推荐码）
   registerUrl: 'https://varnexa.lingdongaff.com/#/?code=HHoxxHGa',
-  description: '灵动云（LINGDONG CLOUD）官方网站。灵动云为多设备用户提供灵活高效的网络连接服务，采用深色星域控制台设计，提供香港、台湾、日本、新加坡、美国等多地区高速优质网络加速节点，让工作、学习与数字生活拥有更多连接选择。',
-  keywords: '灵动云, 灵动云官网, LINGDONG CLOUD, 灵动云机场, 灵动云VPN, 网络加速, IEPL专线, 跨境网络, Clash配置, Mihomo',
+  description: '灵动云（LingDongYun）专注于为用户提供便捷、高效且具有性价比的全球网络加速服务，以专业线路优化、简洁易用的产品体验和灵活多样的套餐选择为核心发展方向。采用 IEPL/IPLC 优化线路方案，提供香港、日本、新加坡、台湾、美国等热门地区的网络节点选择，满足 AI 工具访问、海外流媒体、在线学习、国际网站浏览及跨境办公等多种网络使用需求。',
+  keywords: '灵动云, LingDongYun, 灵动云官网, LINGDONG CLOUD, 灵动云机场, 灵动云VPN, 网络加速, IEPL专线, 跨境网络, Clash配置, Mihomo',
   publishedDate: '2026-10-21',
   updatedDate: '2026-11-11',
   ogImage: '/og-image.png',
