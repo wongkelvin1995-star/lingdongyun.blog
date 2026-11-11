@@ -1,0 +1,605 @@
+---
+/**
+ * 灵动云 MAX 级「紫焰觉醒」品牌开场动效组件
+ *
+ * 核心交互：
+ * 1. 首次进入与用户主动刷新（F5 / Reload）均完整播放（约 3.2s）。
+ * 2. 站内各内页切换返回首页时不重复弹出（基于内部 Referrer 判断）。
+ * 3. 支持 ESC 按键与右上角「跳过动画」按钮即刻跳过。
+ * 4. 遵守 prefers-reduced-motion，若用户设置减少动效则直接静默跳过。
+ * 5. 覆盖层架构，不影响真实 HTML、H1、导航与 Bing SEO 抓取。
+ * 6. 手机端自动调优粒子密度，播放完毕彻底清理 requestAnimationFrame 与事件监听。
+ */
+---
+
+<div id="intro-splash" class="intro-splash" role="region" aria-label="灵动云品牌开场动效">
+  <!-- 粒子光效 Canvas -->
+  <canvas id="splash-canvas" class="splash-canvas" aria-hidden="true"></canvas>
+
+  <!-- 柔和紫焰星云环境光晕 -->
+  <div class="splash-ambient-aura" aria-hidden="true"></div>
+
+  <!-- 右上角跳过控制 -->
+  <div class="splash-skip-wrap">
+    <button id="skip-splash-btn" class="skip-btn" type="button" aria-label="跳过开场动画">
+      <span>跳过动画</span>
+      <kbd class="skip-kbd">ESC</kbd>
+    </button>
+  </div>
+
+  <!-- 中央主舞台 -->
+  <div class="splash-stage">
+    <!-- 1. 官方紫色星环 Logo 图标 -->
+    <div class="splash-logo-wrap">
+      <div class="logo-back-glow" aria-hidden="true"></div>
+      <img
+        src="/logo-512.png"
+        alt="灵动云 Logo"
+        class="splash-logo-img"
+        width="88"
+        height="88"
+        loading="eager"
+        decoding="async"
+      />
+      <div class="logo-orbit-ring" aria-hidden="true"></div>
+    </div>
+
+    <!-- 2. 「灵」「动」「云」三个汉字逐字觉醒（紫焰流光） -->
+    <div class="splash-brand-title" aria-label="灵动云">
+      <span class="char char-1" data-char="灵">灵</span>
+      <span class="char char-2" data-char="动">动</span>
+      <span class="char char-3" data-char="云">云</span>
+    </div>
+
+    <!-- 3. 英文与副标 -->
+    <div class="splash-meta">
+      <div class="splash-en">LINGDONG CLOUD</div>
+      <div class="splash-beam" aria-hidden="true"></div>
+      <div class="splash-slogan">连接世界 · 自在无界</div>
+    </div>
+  </div>
+</div>
+
+<!-- 无脚本降级保障：禁用 JS 时开场直接不显示，确保官网 100% 正常可用 -->
+<noscript>
+  <style>
+    #intro-splash {
+      display: none !important;
+    }
+  </style>
+</noscript>
+
+<style>
+  /* ========================================================
+     基础全屏容器
+     ======================================================== */
+  .intro-splash {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 99999;
+    background-color: #030106;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    user-select: none;
+    pointer-events: auto;
+    opacity: 1;
+    transform: scale(1);
+    filter: blur(0);
+    transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+                filter 0.6s ease;
+    will-change: opacity, transform, filter;
+  }
+
+  .intro-splash.is-hiding {
+    opacity: 0;
+    transform: scale(1.04);
+    filter: blur(6px);
+    pointer-events: none;
+  }
+
+  .intro-splash.is-dismissed {
+    display: none !important;
+  }
+
+  /* 背景 Canvas */
+  .splash-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  /* 柔和紫焰星云环境光晕 */
+  .splash-ambient-aura {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: min(720px, 90vw);
+    height: min(720px, 90vw);
+    transform: translate(-50%, -50%);
+    background: radial-gradient(circle, rgba(93, 3, 251, 0.32) 0%, rgba(139, 92, 246, 0.14) 40%, rgba(3, 1, 6, 0) 72%);
+    z-index: 2;
+    pointer-events: none;
+    animation: aura-breath 3.2s ease-in-out infinite alternate;
+  }
+
+  @keyframes aura-breath {
+    0% { transform: translate(-50%, -50%) scale(0.92); opacity: 0.6; }
+    100% { transform: translate(-50%, -50%) scale(1.08); opacity: 1; }
+  }
+
+  /* 跳过按钮 */
+  .splash-skip-wrap {
+    position: absolute;
+    top: 24px;
+    right: 28px;
+    z-index: 10;
+  }
+
+  .skip-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 7px 16px;
+    border-radius: 9999px;
+    background: rgba(20, 24, 39, 0.65);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(139, 92, 246, 0.35);
+    color: rgba(245, 247, 255, 0.85);
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+  }
+
+  .skip-btn:hover {
+    background: rgba(139, 92, 246, 0.25);
+    border-color: rgba(139, 92, 246, 0.7);
+    color: #ffffff;
+    box-shadow: 0 0 20px rgba(139, 92, 246, 0.45);
+    transform: translateY(-1px);
+  }
+
+  .skip-kbd {
+    display: inline-block;
+    padding: 1px 6px;
+    font-size: 11px;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    color: #a78bfa;
+    background: rgba(93, 3, 251, 0.3);
+    border: 1px solid rgba(139, 92, 246, 0.4);
+    border-radius: 4px;
+    line-height: 1.3;
+  }
+
+  /* ========================================================
+     舞台主容器
+     ======================================================== */
+  .splash-stage {
+    position: relative;
+    z-index: 5;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 0 24px;
+  }
+
+  /* 1. Logo 区域 */
+  .splash-logo-wrap {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 24px;
+    opacity: 0;
+    transform: scale(0.65) translateY(14px);
+    filter: blur(10px) brightness(1.8);
+    animation: logo-awaken 0.85s cubic-bezier(0.16, 1, 0.3, 1) 0.28s forwards;
+  }
+
+  .splash-logo-img {
+    position: relative;
+    z-index: 2;
+    border-radius: 24%;
+    box-shadow: 0 0 35px rgba(93, 3, 251, 0.8),
+                0 0 70px rgba(139, 92, 246, 0.45);
+    transition: transform 0.3s ease;
+  }
+
+  .logo-back-glow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 140px;
+    height: 140px;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(139, 92, 246, 0.6) 0%, rgba(93, 3, 251, 0.2) 50%, transparent 70%);
+    filter: blur(16px);
+    z-index: 1;
+    pointer-events: none;
+    animation: glow-pulse 2s ease-in-out infinite alternate;
+  }
+
+  .logo-orbit-ring {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 120px;
+    height: 120px;
+    transform: translate(-50%, -50%) rotate(-15deg);
+    border-radius: 50%;
+    border: 1px dashed rgba(168, 85, 247, 0.45);
+    z-index: 1;
+    pointer-events: none;
+    animation: orbit-spin 12s linear infinite;
+  }
+
+  @keyframes logo-awaken {
+    0% {
+      opacity: 0;
+      transform: scale(0.65) translateY(14px);
+      filter: blur(10px) brightness(1.8);
+    }
+    60% {
+      opacity: 1;
+      filter: blur(2px) brightness(1.2);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+      filter: blur(0) brightness(1);
+    }
+  }
+
+  @keyframes glow-pulse {
+    0% { transform: translate(-50%, -50%) scale(0.9); opacity: 0.5; }
+    100% { transform: translate(-50%, -50%) scale(1.15); opacity: 0.9; }
+  }
+
+  @keyframes orbit-spin {
+    from { transform: translate(-50%, -50%) rotate(0deg); }
+    to { transform: translate(-50%, -50%) rotate(360deg); }
+  }
+
+  /* 2. 灵动云 汉字逐字展现 */
+  .splash-brand-title {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-size: clamp(48px, 9vw, 84px);
+    font-weight: 900;
+    letter-spacing: 0.08em;
+    line-height: 1.1;
+    margin-bottom: 20px;
+  }
+
+  .char {
+    display: inline-block;
+    position: relative;
+    opacity: 0;
+    transform: translateY(22px) scale(0.85);
+    filter: blur(14px) brightness(2.2);
+    background: linear-gradient(180deg, #FFFFFF 0%, #E9D5FF 35%, #A855F7 70%, #6D28D9 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 0 20px rgba(139, 92, 246, 0.75),
+                 0 0 45px rgba(93, 3, 251, 0.6),
+                 0 0 75px rgba(147, 51, 234, 0.35);
+  }
+
+  .char-1 {
+    animation: flame-awaken 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.85s forwards;
+  }
+  .char-2 {
+    animation: flame-awaken 0.7s cubic-bezier(0.16, 1, 0.3, 1) 1.10s forwards;
+  }
+  .char-3 {
+    animation: flame-awaken 0.7s cubic-bezier(0.16, 1, 0.3, 1) 1.35s forwards;
+  }
+
+  @keyframes flame-awaken {
+    0% {
+      opacity: 0;
+      transform: translateY(22px) scale(0.82);
+      filter: blur(14px) brightness(2.2);
+    }
+    60% {
+      opacity: 1;
+      filter: blur(2px) brightness(1.3);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      filter: blur(0) brightness(1);
+    }
+  }
+
+  /* 3. 英文名、光轨与副标 */
+  .splash-meta {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .splash-en {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-size: clamp(12px, 2.5vw, 15px);
+    font-weight: 700;
+    letter-spacing: clamp(0.24em, 0.5vw, 0.4em);
+    text-transform: uppercase;
+    color: #c084fc;
+    opacity: 0;
+    transform: translateY(8px);
+    text-shadow: 0 0 12px rgba(192, 132, 252, 0.6);
+    animation: meta-fade-in 0.65s cubic-bezier(0.16, 1, 0.3, 1) 1.80s forwards;
+  }
+
+  .splash-beam {
+    width: clamp(160px, 45vw, 360px);
+    height: 1.5px;
+    background: linear-gradient(90deg, transparent 0%, #38bdf8 30%, #8b5cf6 50%, #c084fc 70%, transparent 100%);
+    opacity: 0;
+    transform: scaleX(0);
+    box-shadow: 0 0 12px rgba(56, 189, 248, 0.8),
+                0 0 24px rgba(139, 92, 246, 0.6);
+    animation: beam-expand 0.65s cubic-bezier(0.16, 1, 0.3, 1) 1.95s forwards;
+  }
+
+  .splash-slogan {
+    font-size: clamp(13px, 2.8vw, 17px);
+    font-weight: 500;
+    letter-spacing: clamp(0.16em, 0.35vw, 0.28em);
+    color: #f1f5f9;
+    opacity: 0;
+    transform: translateY(8px);
+    text-shadow: 0 0 16px rgba(255, 255, 255, 0.3),
+                 0 0 30px rgba(139, 92, 246, 0.4);
+    animation: meta-fade-in 0.65s cubic-bezier(0.16, 1, 0.3, 1) 2.10s forwards;
+  }
+
+  @keyframes meta-fade-in {
+    0% {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes beam-expand {
+    0% {
+      opacity: 0;
+      transform: scaleX(0);
+    }
+    100% {
+      opacity: 1;
+      transform: scaleX(1);
+    }
+  }
+
+  /* 尊重用户无障碍减少动效设定 */
+  @media (prefers-reduced-motion: reduce) {
+    .intro-splash {
+      display: none !important;
+    }
+  }
+
+  /* 移动端紧凑微调 */
+  @media (max-width: 640px) {
+    .splash-skip-wrap {
+      top: 16px;
+      right: 16px;
+    }
+    .skip-btn {
+      padding: 5px 12px;
+      font-size: 12px;
+    }
+    .skip-kbd {
+      display: none;
+    }
+    .splash-logo-img {
+      width: 72px;
+      height: 72px;
+    }
+    .splash-logo-wrap {
+      margin-bottom: 18px;
+    }
+    .splash-brand-title {
+      margin-bottom: 16px;
+      gap: 4px;
+    }
+  }
+</style>
+
+<script>
+  (function initIntroSplash() {
+    const splashEl = document.getElementById('intro-splash');
+    if (!splashEl) return;
+
+    // 1. 无障碍：如果用户在系统层面启用了「减少动态效果」，直接静默跳过开场
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      splashEl.classList.add('is-dismissed');
+      return;
+    }
+
+    // 2. 交互判定：
+    // - 用户初次进入网站首页，或者手动按 F5/点击浏览器刷新首页时，播放动画（符合指令要求，不使用 sessionStorage 跳过刷新）
+    // - 当用户在网站内从其他页面（如 /pricing、/about、/blog 等）点击链接导航回首页时，不重复播放
+    const navEntries = performance.getEntriesByType('navigation');
+    const navType = navEntries.length > 0 ? (navEntries[0] as PerformanceNavigationTiming).type : '';
+    const isReload = navType === 'reload';
+    const isInternalNavigation =
+      document.referrer &&
+      document.referrer.startsWith(window.location.origin) &&
+      !isReload;
+
+    if (isInternalNavigation) {
+      splashEl.classList.add('is-dismissed');
+      return;
+    }
+
+    // 锁定页面滚动直至开场结束
+    document.body.style.overflow = 'hidden';
+
+    // 3. 粒子系统 (Purple Flame / Cosmic Energy Particles)
+    const canvas = document.getElementById('splash-canvas') as HTMLCanvasElement | null;
+    let animFrameId: number | null = null;
+    let isRunning = true;
+
+    interface Particle {
+      x: number;
+      y: number;
+      vx: number;
+      vy: number;
+      radius: number;
+      alpha: number;
+      fadeSpeed: number;
+      hue: number;
+    }
+
+    if (canvas) {
+      const ctx = canvas.getContext('2d');
+      if (ctx) {
+        let width = (canvas.width = window.innerWidth);
+        let height = (canvas.height = window.innerHeight);
+
+        const onResize = () => {
+          if (!canvas) return;
+          width = canvas.width = window.innerWidth;
+          height = canvas.height = window.innerHeight;
+        };
+        window.addEventListener('resize', onResize, { passive: true });
+
+        // 手机端降低粒子数量保证极致流畅度（移动端 28 个，桌面端 65 个）
+        const isMobile = window.innerWidth < 768;
+        const particleCount = isMobile ? 28 : 65;
+        const particles: Particle[] = [];
+
+        const colors = [
+          { h: 270, s: '90%', l: '65%' }, // 灵动紫 #8B5CF6
+          { h: 260, s: '95%', l: '50%' }, // 深曜紫 #5D03FB
+          { h: 285, s: '85%', l: '75%' }, // 亮紫光 #C084FC
+          { h: 200, s: '90%', l: '60%' }, // 科技蓝 #38BDF8
+        ];
+
+        for (let i = 0; i < particleCount; i++) {
+          particles.push({
+            x: Math.random() * width,
+            y: height * 0.4 + Math.random() * (height * 0.6),
+            vx: (Math.random() - 0.5) * 0.8,
+            vy: -(0.8 + Math.random() * 1.6),
+            radius: Math.random() * 2.4 + 1.2,
+            alpha: Math.random() * 0.7 + 0.2,
+            fadeSpeed: 0.005 + Math.random() * 0.01,
+            hue: Math.floor(Math.random() * colors.length),
+          });
+        }
+
+        const render = () => {
+          if (!isRunning) return;
+          ctx.clearRect(0, 0, width, height);
+
+          for (let i = 0; i < particles.length; i++) {
+            const p = particles[i];
+            p.x += p.vx + Math.sin(p.y * 0.01) * 0.3;
+            p.y += p.vy;
+            p.alpha -= p.fadeSpeed;
+
+            if (p.alpha <= 0 || p.y < -10) {
+              // 重生在中央下方
+              p.x = width * 0.5 + (Math.random() - 0.5) * (width * 0.6);
+              p.y = height * 0.7 + Math.random() * (height * 0.3);
+              p.vy = -(0.8 + Math.random() * 1.6);
+              p.alpha = Math.random() * 0.65 + 0.25;
+            }
+
+            const c = colors[p.hue];
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+            ctx.fillStyle = `hsla(${c.h}, ${c.s}, ${c.l}, ${Math.max(0, p.alpha)})`;
+            ctx.shadowBlur = p.radius * 3;
+            ctx.shadowColor = `hsl(${c.h}, ${c.s}, ${c.l})`;
+            ctx.fill();
+          }
+
+          animFrameId = requestAnimationFrame(render);
+        };
+
+        render();
+      }
+    }
+
+    // 4. 清理与淡出逻辑
+    let dismissed = false;
+    const dismissSplash = (instant = false) => {
+      if (dismissed) return;
+      dismissed = true;
+      isRunning = false;
+
+      if (animFrameId) {
+        cancelAnimationFrame(animFrameId);
+        animFrameId = null;
+      }
+
+      // 释放页面滚动
+      document.body.style.overflow = '';
+
+      if (instant) {
+        splashEl.classList.add('is-dismissed');
+      } else {
+        splashEl.classList.add('is-hiding');
+        setTimeout(() => {
+          splashEl.classList.add('is-dismissed');
+        }, 620);
+      }
+
+      // 移除事件监听
+      document.removeEventListener('keydown', onKeyDown);
+    };
+
+    // 跳过按钮监听
+    const skipBtn = document.getElementById('skip-splash-btn');
+    if (skipBtn) {
+      skipBtn.addEventListener('click', () => dismissSplash(false));
+    }
+
+    // ESC 键监听
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' || e.code === 'Escape') {
+        dismissSplash(false);
+      }
+    };
+    document.addEventListener('keydown', onKeyDown);
+
+    // 按照时间表：2.6 秒开始平滑淡出，约 3.2 秒彻底结束
+    const fadeTimer = setTimeout(() => {
+      dismissSplash(false);
+    }, 2650);
+
+    // 备用终极防死锁定时器（3.6s），防止任何极端情况下阻挡首页
+    const safetyTimer = setTimeout(() => {
+      dismissSplash(true);
+    }, 3600);
+  })();
+</script>

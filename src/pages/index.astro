@@ -1,5 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import IntroSplash from '../components/IntroSplash.astro';
 import HeroArt from '../components/HeroArt.astro';
 import PlanCard from '../components/PlanCard.astro';
 import { SITE } from '../data/site';
@@ -23,6 +24,9 @@ const featuredPlans = PLANS.filter((p) => ['fufeng', 'yulang', 'chuanyun', 'xian
   title="灵动云 LingDongYun｜全球网络加速服务品牌"
   description="灵动云（LingDongYun）专注于为用户提供便捷、高效且具有性价比的全球网络加速服务。采用 IEPL/IPLC 优化线路方案，提供香港、日本、新加坡、台湾、美国等热门地区节点，满足 AI 工具访问、海外流媒体、在线学习、国际网站浏览及跨境办公需求。"
 >
+  <!-- MAX 级「紫焰觉醒」品牌开场动效 -->
+  <IntroSplash />
+
   <!-- ============================================== -->
   <!-- 01 & 02: MAX 品牌首屏 (Hero Section)           -->
   <!-- ============================================== -->
